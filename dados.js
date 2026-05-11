@@ -89,30 +89,30 @@ const produtos = [
         codigo: 6473,
     },
     
-]
+///sistemas
 
-const produtosJSON = JSON.stringify(produtos)
-console.log(produtosJSON)
-
-const fs = require("fs")
-fs.writeFileSync("produtos.json", produtosJSON)
-
-
-//sistemas.js
-
-// 1. Mostrar produtos
-function mostrar() {
-    const dados = JSON.parse(fs.readFileSync("produtos.json"));
-    console.log("###################LISTA DE PRODUTOS##################:");
-    dados.forEach(function (produtos) {
-            console.log(`${produtos.nome} - ${produtos.valor} - Estoque: ${p.quantidade} - Marca: ${produtos.marca}`)
-        });
-    console.log("");
+    // 1. mostrar tudo
+function mostrarTudo() {
+    console.log("\n--- MEUS PRODUTOS ---");
+    let dados = JSON.parse(fs.readFileSync("produtos.json"));
+    for(let i = 0; i < dados.length; i++) {
+        console.log(dados[i].nome + " - " + dados[i].valor + " - tem " + dados[i].quantidade);
+    }
+    console.log("----------------------\n");
 }
 
-// 2. Adicionar produto
-function adicionar(nome, valor, quantidade, peso, marca, codigo) {
-    const dados = JSON.parse(fs.readFileSync("produtos.json"));
-    dados.push({ nome, valor, quantidade, peso, marca, codigo });
+// 2. adicionar produto
+function adicionar(nome, valor, qtd, peso, marca, codigo) {
+    let dados = JSON.parse(fs.readFileSync("produtos.json"));
+    let novo = {
+        nome: nome,
+        valor: valor,
+        quantidade: qtd,
+        peso: peso,
+        marca: marca,
+        codigo: codigo
+    };
+    dados.push(novo);
     fs.writeFileSync("produtos.json", JSON.stringify(dados, null, 2));
-    console.log(`Produto {nome} adicionado!\n`); }
+    console.log("produto " + nome + " adicionado!");
+}
